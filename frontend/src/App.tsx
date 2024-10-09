@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Layout from './components/Layout';
 
 const App: React.FC = () => {
-  const { isLoaded, isSignedIn } = useUser(); // Get user authentication state
+  const { isLoaded, isSignedIn} = useUser(); // Get user authentication state
 
   if (!isLoaded) {
     return <div>Loading...</div>; // Show a loading state while checking auth
