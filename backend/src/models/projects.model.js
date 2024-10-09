@@ -12,6 +12,11 @@ const projectSchema = new mongoose.Schema({
     },
     baseUrl:{
         type: String,
+        
+    },
+
+    description:{
+        type: String,
         required: true
     }
 

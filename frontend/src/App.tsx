@@ -4,6 +4,8 @@ import { useUser } from '@clerk/clerk-react'; // Adjust based on your auth provi
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Layout from './components/Layout';
+import Project from './pages/Project';
+
 
 const App: React.FC = () => {
   const { isLoaded, isSignedIn} = useUser(); // Get user authentication state
@@ -22,6 +24,10 @@ const App: React.FC = () => {
         <Route
           path="/login"
           element={!isSignedIn ? <Login /> : <Navigate to="/" replace />}
+        />
+      <Route
+          path="/project/:projectname"
+          element={isSignedIn ? <Layout><Project /></Layout> : <Navigate to="/login" replace />}
         />
       </Routes>
     </Router>
