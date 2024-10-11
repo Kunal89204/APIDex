@@ -1,19 +1,28 @@
-import Table from "@/components/Table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
 import { useState } from "react";
+import {
+  Button,
+  Input,
+  Textarea,
+  Box,
+  Heading,
+  Flex,
+  FormControl,
+  FormLabel,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import Table from "../components/Table";
 
 const Home = () => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleCreate = () => {
     // Function to handle the creation logic
@@ -23,61 +32,80 @@ const Home = () => {
     // Reset inputs after submission if needed
     setInput1('');
     setInput2('');
+    onClose();
   };
 
   return (
-    <div className="bg-black text-white p-6">
-      <div className="flex w-full justify-between items-center mb-4">
-        <h2 className="text-3xl">Your Projects</h2>
-        <Dialog>
-          <DialogTrigger className="bg-gray-950 hover:bg-gray-800 transition-all duration-300 text-white font-bold py-2 px-4 rounded border border-gray-900">
-           New Project
-          </DialogTrigger>
-          <DialogContent className="bg-black border border-gray-900 rounded-lg p-6">
-            <DialogHeader>
-              <DialogTitle className="text-lg text-white font-semibold">Create New Project</DialogTitle>
-              <DialogDescription className="mt-2">
-                Enter details to create a new project.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="mt-4">
-              <label className="block text-gray-400 mb-2" htmlFor="input1">Project Name</label>
-              <input
+    <Box bg="black" color="white" p={6}>
+      <Flex justify="space-between" align="center" mb={4}>
+        <Heading size="lg">Your Projects</Heading>
+        <Button
+          onClick={onOpen}
+          border={'1px solid'}
+          borderColor={'gray.800'}
+          bg={'black'}
+          _hover={{ bg: "gray.900" }}
+          color="white"
+          fontWeight="bold"
+          borderRadius={'3px'}
+        >
+          New Project
+        </Button>
+      </Flex>
+      
+      <Table />
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent bg="black" borderColor="gray.700" borderWidth="1px">
+          <ModalHeader color="white">Create New Project</ModalHeader>
+          <ModalCloseButton color="white" />
+          <ModalBody>
+            <FormControl mb={4}>
+              <FormLabel color="gray.400" htmlFor="input1">Project Name</FormLabel>
+              <Input
                 id="input1"
-                type="text"
                 value={input1}
                 onChange={(e) => setInput1(e.target.value)}
-                className="w-full bg-black border border-gray-900 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
                 placeholder="Enter first field"
+                bg="gray.900"
+                borderColor="gray.700"
+                _focus={{ borderColor: "gray.600", boxShadow: "outline" }}
+                color="white"
               />
-            </div>
-            <div className="mt-4">
-              <label className="block text-gray-400 mb-2" htmlFor="input2">Description</label>
-              <textarea
+            </FormControl>
+            <FormControl>
+              <FormLabel color="gray.400" htmlFor="input2">Description</FormLabel>
+              <Textarea
                 id="input2"
-                rows={3}
                 value={input2}
                 onChange={(e) => setInput2(e.target.value)}
-                className="w-full bg-black border border-gray-900 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-gray-600"
                 placeholder="Enter second field"
+                rows={3}
+                bg="gray.900"
+                borderColor="gray.700"
+                _focus={{ borderColor: "gray.600", boxShadow: "outline" }}
+                color="white"
               />
-            </div>
-            <DialogFooter className="flex justify-end mt-4">
-              <DialogClose className="mr-2 bg-gray-950 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded border border-gray-900">
-                Cancel
-              </DialogClose>
-              <button
-                onClick={handleCreate}
-                className="bg-gray-950 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded border border-gray-900"
-              >
-                Create
-              </button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
-      <Table />
-    </div>
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose} mr={3} bg="gray.800" _hover={{ bg: "gray.700" }}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreate}
+              bg="gray.800"
+              _hover={{ bg: "gray.700" }}
+              color="white"
+              fontWeight="bold"
+            >
+              Create
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </Box>
   );
 };
 

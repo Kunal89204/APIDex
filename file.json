@@ -1,0 +1,21 @@
+{
+  "projectName": "SocialImage",
+  "groups": [
+    {
+      "groupName": "Users",
+      "apis": [
+        {
+          "method": "Post",
+          "endpoint": "v2/providers",
+          "description": "Create a new provider",
+          "parameters": [
+            {
+              "name": "id",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

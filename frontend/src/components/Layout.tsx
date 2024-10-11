@@ -1,5 +1,5 @@
 // src/components/Layout.jsx
-import { LayoutProps } from "@/types/types";
+import { LayoutProps } from "../types/types";
 // import { Button } from "./ui/button";
 import { UserButton} from "@clerk/clerk-react";
 
